@@ -91,7 +91,7 @@ https://github.com/wawan-ikhwan/indodax
     * close() -> Closing connection, it's possible to reopen using open().
     * serverTime -> Get current server time (millisecond since epoch).
     * pairs -> Get list of currency pairs (cryptoCurrency_fiatCurrency).
-    * priceIncrements Get list of price increments.
+    * priceIncrements -> Get list of price increments.
     * getTicker(id) -> Get a ticker by pair_id.
     * tickerAll -> Get list of tickers.
     * summaries -> Get summaries.
