@@ -8,3 +8,6 @@
 - Change dependencies dart:io to universal_io
 - Update example files
 - Add comments
+
+## 1.1.1
+- Add repository in pubspec.yaml
