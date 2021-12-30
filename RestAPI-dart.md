@@ -1,3 +1,46 @@
+<details>
+<summary>
+
+ # Installing
+
+</summary>
+## Use this package as a library
+### Depend on it
+
+Run this command for:
+
+With Dart:
+```shell
+ $ dart pub add indodax
+```
+With Flutter:
+```shell
+$ flutter pub add indodax
+```
+
+This will add a line like this to your package's pubspec.yaml (and run an implicit ```dart pub get```):
+```yaml
+dependencies:
+  indodax: ^1.0.2
+```
+
+Alternatively, your editor might support ```dart pub get``` or ```flutter pub get```.
+
+### Import it
+Now in your Dart code, you can use:
+```dart
+import 'package:indodax/indodax.dart';
+```
+
+</details>
+
+<details>
+<summary>
+
+ # Usage
+
+</summary>
+
 A simple asynchronous API Client Indodax
 
 This library is implementing [Indodax Official API](https://github.com/btcid/indodax-official-api-docs).
@@ -94,12 +137,12 @@ https://github.com/wawan-ikhwan/indodax
     * priceIncrements -> Get list of price increments.
     * getTicker(id) -> Get a ticker by pair_id.
     * tickerAll -> Get list of tickers.
-    * summaries -> Get summaries. Contain tickers, prices 24 hours, and price 7 days.
-    * getTrade(id) -> Get public trade activity by pair_id.
+    * summaries -> Get summaries.
+    * getTrade(id) -> Get public trade history by pair_id.
     * getDepth(id) -> Get bid/ask depth by pair_id.
 2. PrivateAPI:
     * close() -> Close connection. It's not possible to reopen, but you can create new trader (new object).
-    * info -> Get general info current trader.
+    * info -> Get info trader.
     * getTransHistory(start,end) -> Get transaction history.
     * trade(pair,type,price,cryptoAmount,fiatAmount) -> Do trade (open order or instant order)
     * getTradeHistory(pair,count,fromID,endID,order,since,end) -> Get trading history.
@@ -117,3 +160,7 @@ PrivateAPI is object based, it's automatically implement client from http librar
 But when the trader is not needed anymore, you can close the object so the client interface will close and save bandwidth.
 
 So, keeping connection open is better for multiple request to server.
+
+
+</details>
+

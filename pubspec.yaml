@@ -1,6 +1,6 @@
 name: indodax
-description: A simple asynchronous Indodax API Client.
-version: 1.0.2
+description: A simple asynchronous Indodax API Client. Support PrivateAPI and PublicAPI. See https://github.com/wawan-ikhwan/indodax
+version: 1.1.0
 homepage: https://ikhwanperwira.my.id
 
 environment:
@@ -11,3 +11,4 @@ dev_dependencies:
 dependencies: 
   crypto: ^3.0.1
   http: ^0.13.4
+  universal_io: ^2.0.4

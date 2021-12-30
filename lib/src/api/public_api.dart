@@ -9,30 +9,39 @@ import '../model/summaries.dart';
 import '../model/ticker.dart';
 import '../model/trade.dart';
 
+/// An API access that doesn't need authenticate which provides public info like
+/// [serverTime], [pairs], [priceIncrements], [getTicker], [close]
+/// [summaries], [getTrade], [getTrade], [tickerAll], [open]
 class PublicAPI {
+  /// A client inteface, so no need to open close connection when making request.
   static var _client = http.Client();
 
+  /// Create new client interface with closing then opening (reopening).
   static void open() {
     close();
     _client = http.Client();
   }
 
+  /// Close current client interface.
   static void close() {
     _client.close();
   }
 
+  /// Private method that doing request according specified path.
   static Future<Map<String, dynamic>> _fetch(final String path) async {
     final url = Uri.https('indodax.com', path);
     final response = await _client.get(url);
     return convert.jsonDecode(response.body) as Map<String, dynamic>;
   }
 
+  /// Get current server time (millisecond since epoch).
   static Future<ServerTime> get serverTime async {
     final jsonResponse = await _fetch('api/server_time');
     return ServerTime(
         timeZone: jsonResponse['timezone'], time: jsonResponse['server_time']);
   }
 
+  /// Get list of currency pairs (cryptoCurrency_fiatCurrency).
   static Future<List<Pair>> get pairs async {
     final jsonResponse = await _fetch('api/pairs') as List;
     final List<Pair> listModel = jsonResponse
@@ -60,6 +69,7 @@ class PublicAPI {
     return listModel;
   }
 
+  /// Get list of price increments.
   static Future<List<PriceIncrement>> get priceIncrements async {
     final jsonResponse = await _fetch('api/price_increments');
     final Map<String, dynamic> increments = jsonResponse['increments'];
@@ -70,6 +80,7 @@ class PublicAPI {
     return listModel;
   }
 
+  /// Get a ticker by pair_id, properties name will always null.
   static Future<Ticker> getTicker({final String id = 'btc_idr'}) async {
     final List listCurrency = id.split('_');
     final String crypto = listCurrency[0];
@@ -89,6 +100,7 @@ class PublicAPI {
         name: ticker['name']);
   }
 
+  /// Get list of tickers.
   static Future<List<Ticker>> get tickerAll async {
     final jsonResponse = await _fetch('api/ticker_all');
     final Map<String, dynamic> tickers = jsonResponse['tickers'];
@@ -111,6 +123,7 @@ class PublicAPI {
     return listModel;
   }
 
+  /// Get summaries. Contain tickers, prices 24 hours, and price 7 days.
   static Future<Summaries> get summaries async {
     final jsonResponse = await _fetch('api/summaries');
     final Map<String, dynamic> tickers = jsonResponse['tickers'];
@@ -136,6 +149,7 @@ class PublicAPI {
         prices7d: jsonResponse['prices_7d']);
   }
 
+  /// Get public trade activity by pair_id.
   static Future<List<Trade>> getTrade({final String id = 'btc_idr'}) async {
     final List listCurrency = id.split('_');
     final String crypto = listCurrency[0];
@@ -152,6 +166,7 @@ class PublicAPI {
     return listModel;
   }
 
+  /// Get bid/ask depth by pair_id.
   static Future<Depth> getDepth({final String id = 'btc_idr'}) async {
     final List listCurrency = id.split('_');
     final String crypto = listCurrency[0];

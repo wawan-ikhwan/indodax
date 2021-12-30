@@ -1,6 +1,15 @@
 import 'package:indodax/indodax.dart';
 
 Future<void> main() async {
+  // PUBLIC API EXAMPLE:
+  var response = await PublicAPI.getTicker(id: 'btc_idr');
+  print(response.id);
+  print(response.high);
+  print(response.low);
+  print(response.last);
+  PublicAPI.close();
+
+  // PRIVATE API EXAMPLE:
   var ujang = PrivateAPI(
     key: 'OOZJORLL-XFEC6V3D-EDUZHELU-PHP8YF9F-GSSXV2K6',
     secret:
