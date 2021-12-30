@@ -1,6 +1,6 @@
 name: indodax
-description: A simple Indodax API Client.
-version: 1.0.0
+description: A simple asynchronous Indodax API Client.
+version: 1.0.2
 homepage: https://ikhwanperwira.my.id
 
 environment:

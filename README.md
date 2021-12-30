@@ -7,26 +7,28 @@ This library is implementing [Indodax Official API](https://github.com/btcid/ind
 This package contains a set of high-level functions and classes that make it
 easy to consume API.
 
+Feel free to contribute!
+
+https://github.com/wawan-ikhwan/indodax
+
 ## Using
-1. Public API example:
+1. Public API:
 
     You don't need authenticate for PublicAPI.
-    * Synchronous
-    
-    Get server time example:
+
+    Get server time example (Synchronous):
     ```dart
     import 'package:indodax/indodax.dart';
 
     void main(){
-      PublicAPI.summaries.then((t) {
+      PublicAPI.serverTime.then((t) {
         print(t.timeZone);
         print(t.time);
         });
     }
     ```
-    * Asynchronous ***[Recommended]***
 
-    Get server time example:
+    Get server time example (Asynchronous):
     ```dart
     import 'package:indodax/indodax.dart';
 
@@ -36,7 +38,7 @@ easy to consume API.
       print(response.time);
     }
     ```
-    Get summaries example:
+    Get summaries example (Asynchronous):
     ```dart
     import 'package:indodax/indodax.dart';
 
@@ -55,9 +57,13 @@ easy to consume API.
     import 'package:indodax/indodax.dart';
 
     Future<void> main() async {
-      var ujang = PrivateAPI(key:'OOZJORLL-XFEC6V3D-EDUZHELU-PHP8YF9F-GSSXV2K6',secret:'b11c56f740d358b1640e17beb72bd3c137b58b02170aa4f3cf28327c3f87fb73cc4e6b3085b7f7fb');
+      var ujang = PrivateAPI(
+        key: 'OOZJORLL-XFEC6V3D-EDUZHELU-PHP8YF9F-GSSXV2K6',
+        secret: 'b11c56f740d358b1640e17beb72bd3c137b58b02170aa4f3cf28327c3f87fb73cc4e6b3085b7f7f',
+      );
       var infoUjang = await ujang.info
       print(infoUjang);
+      ujang.close();
     }
     ```
     Or you can use valid **auth.json** file
@@ -73,8 +79,31 @@ easy to consume API.
     import 'package:indodax/indodax.dart';
 
     Future<void> main() async {
-      var ujang = PrivateAPI(authPath:'auth.json');
+      var ujang = PrivateAPI(authPath: './auth.json');
       var infoUjang = await ujang.info
       print(infoUjang);
+      ujang.close();
     }
     ```
+## Supported Method
+1. PublicAPI:
+    * open() -> Openning connection, actually it's closing then opening (reopenning).
+    * close() -> Closing connection, it's possible to reopen using open().
+    * serverTime -> Get current server time (millisecond since epoch).
+    * pairs -> Get list of currency pairs (cryptoCurrency_fiatCurrency).
+    * priceIncrements Get list of price increments.
+    * getTicker(id) -> Get a ticker by pair_id.
+    * tickerAll -> Get list of tickers.
+    * summaries -> Get summaries.
+    * getTrade(id) -> Get public trade history by pair_id.
+    * getDepth(id) -> Get bid/ask depth by pair_id.
+2. PrivateAPI:
+    * close() -> Close connection. It's not possible to reopen, but you can create new trader (new object).
+    * info -> Get info trader.
+    * getTransHistory(start,end) -> Get transaction history.
+    * trade(pair,type,price,cryptoAmount,fiatAmount) -> Do trade (open order or instant order)
+    * getTradeHistory(pair,count,fromID,endID,order,since,end) -> Get trading history.
+    * getOpenOrders(pair) -> Get current trader's book order.
+    * getOrderHistory(pair,count,from) -> Get order history (canceled, success, etc).
+    * getOrder(pair,orderID) -> get detail of order.
+    * cancelOrder(pair,orderID,type) -> Do cancel order in current trader's book order.
