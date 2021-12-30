@@ -107,3 +107,13 @@ https://github.com/wawan-ikhwan/indodax
     * getOrderHistory(pair,count,from) -> Get order history (canceled, success, etc).
     * getOrder(pair,orderID) -> get detail of order.
     * cancelOrder(pair,orderID,type) -> Do cancel order in current trader's book order.
+
+## Does closing connection matter?
+It's depends. 
+
+PublicAPI class are static class so it's automatically implement client interface from http library.
+
+PrivateAPI is object based, it's automatically implement client from http library when the object is created. We can say whenever object created we are creating trader because we created new client interface. So you can use multiple account in this private api as long the api credential is different.
+But when the trader is not needed anymore, you can close the object so the client interface will close and save bandwidth.
+
+So, keeping connection open is better for multiple request to server.
